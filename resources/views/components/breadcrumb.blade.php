@@ -9,7 +9,7 @@
         @if (empty($s_submenu))
             <li aria-current="page">
                 <div class="flex items-center">
-                    <i class="fa fa-angle-right"></i>
+                    <i class="fa fa-angle-right text-gray-400"></i>
                     <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">
                         {{ $user->menus[$s_menu]['detail'] }}
                     </span>
@@ -18,23 +18,21 @@
         @else
             <li>
                 <div class="flex items-center">
-                    <i class="fa fa-angle-right"></i>
-                    <a href="#" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">
+                    <i class="fa fa-angle-right text-gray-400"></i>
+                    <a href="{{ route($user->menus[$s_menu]['reference']) }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">
                         {{ $user->menus[$s_menu]['detail'] }}
                     </a>
                 </div>
             </li>
             <li aria-current="page">
                 <div class="flex items-center">
-                    <i class="fa fa-angle-right"></i>
+                    <i class="fa fa-angle-right text-gray-400"></i>
                     <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">
-                        {{ $user->menus[$s_menu]['sub'][$s_submenu]['detail'] }}
+                        {{ $user->menus[$s_menu]['subs'][$s_submenu]['detail'] }}
                     </span>
                 </div>
             </li>
         @endif
-
-
     </ol>
 </nav>
 
@@ -42,6 +40,6 @@
     @if (empty($s_submenu))
         {{ $user->menus[$s_menu]['detail'] }}
     @else
-        {{ $user->menus[$s_menu]['sub'][$s_submenu]['detail'] }}
+        {{ $user->menus[$s_menu]['subs'][$s_submenu]['detail'] }}
     @endif
 </h1>
