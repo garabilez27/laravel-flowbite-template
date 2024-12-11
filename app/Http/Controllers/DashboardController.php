@@ -11,6 +11,17 @@ class DashboardController extends Controller
 
     public function index()
     {
-        return view('pages.dashboard');
+        return $this->render('dashboard');
+    }
+
+    public function render(string $page, array $records = [], string $search = '')
+    {
+        $data = [
+            's_menu' => $this->root,
+            's_submenu' => $this->getSubMenu($this->root, $page),
+            'records' => $records,
+            'search' => $search,
+        ];
+        return view('pages.'.$page, $data);
     }
 }
