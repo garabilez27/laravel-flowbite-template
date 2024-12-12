@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Menus;
 
 class MenuController extends Controller
 {
@@ -11,7 +12,8 @@ class MenuController extends Controller
 
     public function index()
     {
-        return $this->render('index');
+        $menus = Menus::where('mn_deleted', 0)->get();
+        return $this->render('index', $menus);
     }
 
     public function add()
@@ -19,7 +21,7 @@ class MenuController extends Controller
         return $this->render('add');
     }
 
-    public function render(string $page, array $records = [], string $search = '')
+    public function render(string $page, mixed $records = [], string $search = '')
     {
         $data = [
             's_menu' => $this->root,
