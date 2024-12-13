@@ -22,6 +22,10 @@ Route::middleware(Authorized::class)->group(function() {
         // Menus
         Route::prefix('menus')->group(function() {
             Route::get('/', [MenuController::class, 'index'])->name('mn.index');
+
+            Route::post('/create', [MenuController::class, 'create'])->name('mn.create');
+            Route::post('/delete', [MenuController::class, 'destroy'])->name('mn.delete');
+            Route::post('/update', [MenuController::class, 'update'])->name('mn.update');
         });
 
         // Sub Menus
@@ -43,3 +47,5 @@ Route::middleware(Guest::class)->group(function() {
 
     Route::post('/validate', [LoginController::class, 'validate'])->name('validate');
 });
+
+include 'api.php';

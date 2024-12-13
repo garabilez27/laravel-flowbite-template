@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tbl_menus', function (Blueprint $table) {
             $table->string('mn_id', 32)->primary();
-            $table->string('mn_prefix', 10)->unique();
+            $table->string('mn_prefix', 10);
             $table->string('mn_detail');
             $table->string('mn_reference', 191)->unique();
             $table->string('mn_icon');

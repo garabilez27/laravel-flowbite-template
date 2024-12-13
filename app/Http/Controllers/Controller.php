@@ -2,8 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Values;
+
 abstract class Controller
 {
+    protected function generateID(int $id)
+    {
+        $rec = Values::find($id);
+        $pref = $rec->val_prefix;
+        $val = $rec->val_value + 1;
+        $m = date('m');
+        $y = date('Y');
+        $new_id = $pref.$val.$m.$y;
+
+        $rec->val_value = $val;
+        $rec->save();
+
+        return $new_id;
+    }
+
     protected function successMessage(string $message = 'Record has been added successfully.')
     {
         return [
