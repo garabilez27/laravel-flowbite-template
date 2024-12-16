@@ -153,6 +153,23 @@ if(subMenuUpdateBtns.length > 0) {
     }
 }
 
+// Get all elements with the 'sub-menu-form' class
+const roleUpdateBtns = document.getElementsByClassName('role-form');
+if(roleUpdateBtns.length > 0) {
+    for (let i = 0; i < roleUpdateBtns.length; i++) {
+        roleUpdateBtns[i].addEventListener('click', async function() {
+            const url = 'http://127.0.0.1:8000/api/v1/roles/' + this.value;
+            const data = await fetchData(url);
+
+            // Fill the menu update form
+            document.getElementById('e-detail').value = data['detail'];
+            document.getElementById('e-level').value = data['level'];
+            document.getElementById('update').value = data['id'];
+            document.getElementById('e-delete').value = data['id'];
+        });
+    }
+}
+
 // Modify fetchData to return a Promise
 function fetchData(apiUrl) {
     return new Promise((resolve, reject) => {

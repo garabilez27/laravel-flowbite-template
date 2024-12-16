@@ -4,8 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\Authorized;
 
 use App\Http\Resources\MenuResource;
+use App\Http\Resources\RoleResource;
 use App\Http\Resources\SubMenuResource;
 use App\Models\Menus;
+use App\Models\Roles;
 use App\Models\SubMenus;
 
 Route::middleware(Authorized::class)->group(function() {
@@ -28,6 +30,16 @@ Route::middleware(Authorized::class)->group(function() {
                 });
                 Route::get('/{id}', function(string $id) {
                     return new SubMenuResource(SubMenus::whereRaw('md5(sbmn_id) = ?', $id)->first());
+                });
+            });
+
+            // Role API
+            Route::prefix('roles')->group(function() {
+                Route::get('/', function() {
+                    return RoleResource::collection(Roles::paginate());
+                });
+                Route::get('/{id}', function(string $id) {
+                    return new RoleResource(Roles::whereRaw('md5(rl_id) = ?', $id)->first());
                 });
             });
         });

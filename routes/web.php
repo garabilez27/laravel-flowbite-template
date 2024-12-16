@@ -40,6 +40,10 @@ Route::middleware(Authorized::class)->group(function() {
         // Roles
         Route::prefix('roles')->group(function() {
             Route::get('/', [RoleController::class, 'index'])->name('rl.index');
+
+            Route::post('/create', [RoleController::class, 'create'])->name('rl.create');
+            Route::post('/delete', [RoleController::class, 'destroy'])->name('rl.delete');
+            Route::post('/update', [RoleController::class, 'update'])->name('rl.update');
         });
     });
 });
