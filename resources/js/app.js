@@ -40,77 +40,95 @@ const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
 
 // Change the icons inside the button based on previous settings
 if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    themeToggleLightIcon.classList.remove('hidden');
+    if(themeToggleLightIcon != null)
+    {
+        themeToggleLightIcon.classList.remove('hidden');
+    }
 } else {
-    themeToggleDarkIcon.classList.remove('hidden');
+    if(themeToggleDarkIcon != null)
+    {
+        themeToggleDarkIcon.classList.remove('hidden');
+    }
 }
 
 const themeToggleBtn = document.getElementById('theme-toggle');
+if(themeToggleBtn != null)
+{
+    let event = new Event('dark-mode');
 
-let event = new Event('dark-mode');
+    themeToggleBtn.addEventListener('click', function() {
 
-themeToggleBtn.addEventListener('click', function() {
+        // toggle icons
+        themeToggleDarkIcon.classList.toggle('hidden');
+        themeToggleLightIcon.classList.toggle('hidden');
 
-    // toggle icons
-    themeToggleDarkIcon.classList.toggle('hidden');
-    themeToggleLightIcon.classList.toggle('hidden');
+        // if set via local storage previously
+        if (localStorage.getItem('color-theme')) {
+            if (localStorage.getItem('color-theme') === 'light') {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            }
 
-    // if set via local storage previously
-    if (localStorage.getItem('color-theme')) {
-        if (localStorage.getItem('color-theme') === 'light') {
-            document.documentElement.classList.add('dark');
-            localStorage.setItem('color-theme', 'dark');
+        // if NOT set via local storage previously
         } else {
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('color-theme', 'light');
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
         }
 
-    // if NOT set via local storage previously
-    } else {
-        if (document.documentElement.classList.contains('dark')) {
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('color-theme', 'light');
-        } else {
-            document.documentElement.classList.add('dark');
-            localStorage.setItem('color-theme', 'dark');
-        }
-    }
+        document.dispatchEvent(event);
 
-    document.dispatchEvent(event);
+    });
+}
 
-});
 
 // Get all elements with the 'delete' class
-let selectedDeleteBtns = document.getElementsByClassName('delete');
-for (let i = 0; i < selectedDeleteBtns.length; i++) {
-    selectedDeleteBtns[i].addEventListener('click', function() {
+const selectedDeleteBtns = document.getElementsByClassName('delete');
+if(selectedDeleteBtns.length > 0) {
+    for (let i = 0; i < selectedDeleteBtns.length; i++) {
+        selectedDeleteBtns[i].addEventListener('click', function() {
+            let deleteBtn = document.getElementById('delete');
+            deleteBtn.value = this.value;
+        });
+    }
+}
+
+// Get all elements with the 'e-delete' class
+const eSelectedDeleteBtns = document.getElementById('e-delete');
+if(eSelectedDeleteBtns != null)
+{
+    eSelectedDeleteBtns.addEventListener('click', function() {
         let deleteBtn = document.getElementById('delete');
         deleteBtn.value = this.value;
     });
 }
-selectedDeleteBtns = document.getElementById('e-delete');
-selectedDeleteBtns.addEventListener('click', function() {
-    let deleteBtn = document.getElementById('delete');
-    deleteBtn.value = this.value;
-});
 
-// Get all elements with the 'delete' class
+// Get all elements with the 'menu-form' class
 const selectedUpdateBtns = document.getElementsByClassName('menu-form');
-for (let i = 0; i < selectedUpdateBtns.length; i++) {
-    selectedUpdateBtns[i].addEventListener('click', async function() {
-        const url = 'http://127.0.0.1:8000/api/v1/menus/' + this.value;
-        const data = await fetchData(url);
+if(selectedUpdateBtns.length > 0) {
+    for (let i = 0; i < selectedUpdateBtns.length; i++) {
+        selectedUpdateBtns[i].addEventListener('click', async function() {
+            const url = 'http://127.0.0.1:8000/api/v1/menus/' + this.value;
+            const data = await fetchData(url);
 
-        // Fill the menu update form
-        document.getElementById('e-prefix').value = data['prefix'];
-        document.getElementById('e-detail').value = data['detail'];
-        document.getElementById('e-icon').value = data['icon'];
-        document.getElementById('e-reference').value = data['reference'];
-        document.getElementById('e-sequence').value = data['sequence'];
-        document.getElementById('e-branched').value = data['branched'];
-        document.getElementById('update').value = data['id'];
-        document.getElementById('e-delete').value = data['id'];
-    });
+            // Fill the menu update form
+            document.getElementById('e-prefix').value = data['prefix'];
+            document.getElementById('e-detail').value = data['detail'];
+            document.getElementById('e-icon').value = data['icon'];
+            document.getElementById('e-reference').value = data['reference'];
+            document.getElementById('e-sequence').value = data['sequence'];
+            document.getElementById('e-branched').value = data['branched'];
+            document.getElementById('update').value = data['id'];
+            document.getElementById('e-delete').value = data['id'];
+        });
+    }
 }
 
 // Modify fetchData to return a Promise
