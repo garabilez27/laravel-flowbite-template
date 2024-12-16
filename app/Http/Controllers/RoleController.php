@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Menus;
+use App\Models\RoleMenus;
 use Exception;
 use Illuminate\Http\Request;
 use App\Models\Roles;
+use App\Models\RoleSubMenus;
 
 class RoleController extends Controller
 {
@@ -41,6 +44,30 @@ class RoleController extends Controller
         ];
 
         return $this->render('index', $data, $search);
+    }
+
+    public function view(string $id)
+    {
+        $role_menus = [];
+        $menus = Menus::where('mn_deleted', 0)->get();
+        $r_menus = RoleMenus::whereRaw('md5(rl_id) = ?', $id)->get();
+        foreach($r_menus as $menu)
+        {
+            $role_menus[] = md5($menu->mn_id);
+            $r_sub_menus = RoleSubMenus::where('rlmn_id', $menu->rlmn_id)->get();
+            foreach($r_sub_menus as $sub)
+            {
+                $role_menus[] = md5($sub->sbmn_id);
+            }
+        }
+
+        $data = [
+            'menus' => $menus,
+            'role_menus' => $role_menus,
+            'id' => $id,
+        ];
+
+        return $this->render('view', $data);
     }
 
     public function create(Request $request)

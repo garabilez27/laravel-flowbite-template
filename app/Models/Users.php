@@ -46,10 +46,10 @@ class Users extends Model
                     'menu' => $sub->sbmn_menu,
                     'class' => $sub->sbmn_class,
                     'can' => [
-                        'create' => $sub->sbmn_create,
-                        'update' => $sub->sbmn_update,
-                        'destroy' => $sub->sbmn_destroy,
-                        'view' => $sub->sbmn_view,
+                        'create' => $role_sub_menu->rsm_create,
+                        'update' => $role_sub_menu->rsm_update,
+                        'destroy' => $role_sub_menu->rsm_destroy,
+                        'view' => $role_sub_menu->rsm_view,
                     ],
                 ];
             }
