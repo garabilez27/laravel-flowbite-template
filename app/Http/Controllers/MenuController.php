@@ -25,10 +25,10 @@ class MenuController extends Controller
 
         // get list
         $search = isset($inputs['search']) ? $inputs['search'] : '';
-        $menus = Menus::where('mn_deleted', 0)->where('mn_active', 1);
+        $menus = Menus::where('mn_deleted', 0);
         if(!empty($inputs['search']))
         {
-            $menus = Menus::where('mn_deleted', 0)->where('mn_active', 1)->whereRaw('mn_detail like ?', '%'.$search.'%');
+            $menus = Menus::where('mn_deleted', 0)->whereRaw('mn_detail like ?', '%'.$search.'%');
         }
 
         // Generate data
@@ -86,7 +86,7 @@ class MenuController extends Controller
             'reference' => 'required',
             'branched' => 'required|numeric',
             'sequence' => 'numeric|nullable',
-            'id' =>'string',
+            'id' =>'string|required',
         ]);
 
         try
@@ -98,7 +98,14 @@ class MenuController extends Controller
                 return redirect()->back()->withErrors(['reference' => 'The reference has already been taken.']);
             }
 
+            // Validate menu
             $menu = Menus::whereRaw('md5(mn_id) = ?', $inputs['id'])->where('mn_deleted', 0)->first();
+            if(!$menu)
+            {
+                return redirect()->route($this->default_route)->with('message', $this->warningMessage());
+            }
+
+            // Save record
             $menu->mn_prefix = $inputs['prefix'];
             $menu->mn_detail = $inputs['detail'];
             $menu->mn_icon = $inputs['icon'];
