@@ -31,11 +31,19 @@ Route::middleware(Authorized::class)->group(function() {
         // Sub Menus
         Route::prefix('subs')->group(function() {
             Route::get('/', [SubMenuController::class, 'index'])->name('sbmn.index');
+
+            Route::post('/create', [SubMenuController::class, 'create'])->name('sbmn.create');
+            Route::post('/delete', [SubMenuController::class, 'destroy'])->name('sbmn.delete');
+            Route::post('/update', [SubMenuController::class, 'update'])->name('sbmn.update');
         });
 
         // Roles
         Route::prefix('roles')->group(function() {
             Route::get('/', [RoleController::class, 'index'])->name('rl.index');
+
+            Route::post('/create', [RoleController::class, 'create'])->name('rl.create');
+            Route::post('/delete', [RoleController::class, 'destroy'])->name('rl.delete');
+            Route::post('/update', [RoleController::class, 'update'])->name('rl.update');
         });
     });
 });

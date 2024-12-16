@@ -131,6 +131,45 @@ if(selectedUpdateBtns.length > 0) {
     }
 }
 
+// Get all elements with the 'sub-menu-form' class
+const subMenuUpdateBtns = document.getElementsByClassName('sub-menu-form');
+if(subMenuUpdateBtns.length > 0) {
+    for (let i = 0; i < subMenuUpdateBtns.length; i++) {
+        subMenuUpdateBtns[i].addEventListener('click', async function() {
+            const url = 'http://127.0.0.1:8000/api/v1/subs/' + this.value;
+            const data = await fetchData(url);
+
+            // Fill the menu update form
+            document.getElementById('e-for').value = data['for']['id'];
+            document.getElementById('e-class').value = data['class'];
+            document.getElementById('e-detail').value = data['detail'];
+            document.getElementById('e-icon').value = data['icon'];
+            document.getElementById('e-reference').value = data['reference'];
+            document.getElementById('e-sequence').value = data['sequence'];
+            document.getElementById('e-menu').value = data['menu'];
+            document.getElementById('update').value = data['id'];
+            document.getElementById('e-delete').value = data['id'];
+        });
+    }
+}
+
+// Get all elements with the 'sub-menu-form' class
+const roleUpdateBtns = document.getElementsByClassName('role-form');
+if(roleUpdateBtns.length > 0) {
+    for (let i = 0; i < roleUpdateBtns.length; i++) {
+        roleUpdateBtns[i].addEventListener('click', async function() {
+            const url = 'http://127.0.0.1:8000/api/v1/roles/' + this.value;
+            const data = await fetchData(url);
+
+            // Fill the menu update form
+            document.getElementById('e-detail').value = data['detail'];
+            document.getElementById('e-level').value = data['level'];
+            document.getElementById('update').value = data['id'];
+            document.getElementById('e-delete').value = data['id'];
+        });
+    }
+}
+
 // Modify fetchData to return a Promise
 function fetchData(apiUrl) {
     return new Promise((resolve, reject) => {

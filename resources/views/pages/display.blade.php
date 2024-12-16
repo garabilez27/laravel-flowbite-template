@@ -8,7 +8,7 @@
                 <!-- Button 1 -->
                 <a href="{{ route($sub['reference']) }}" class="flex flex-col items-center space-y-2 p-4 bg-gray-100 text-black rounded-lg shadow-md hover:bg-gray-200 transition-all duration-300 ease-in-out">
                     <!-- Icon -->
-                    <i class="fa fa-circle"></i>
+                    <i class="fa {{ $sub['icon'] }}"></i>
                     <!-- Button Text -->
                     <span class="text-sm md:text-base">{{ $sub['detail'] }}</span>
                 </a>

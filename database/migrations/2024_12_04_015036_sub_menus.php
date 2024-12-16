@@ -15,13 +15,9 @@ return new class extends Migration
             $table->string('sbmn_id', 32)->primary();
             $table->string('sbmn_detail');
             $table->string('sbmn_reference', 191)->unique();
-            $table->string('sbmn_icon')->default('fa-circle');
+            $table->string('sbmn_icon')->default('fa-circle')->nullable();
             $table->string('sbmn_class')->nullable();
             $table->unsignedInteger('sbmn_sequence')->nullable();
-            $table->unsignedTinyInteger('sbmn_create')->default(0);
-            $table->unsignedTinyInteger('sbmn_update')->default(0);
-            $table->unsignedTinyInteger('sbmn_destroy')->default(0);
-            $table->unsignedTinyInteger('sbmn_view')->default(0);
             $table->unsignedTinyInteger('sbmn_menu')->default(1);
             $table->unsignedTinyInteger('sbmn_active')->default(1);
             $table->unsignedTinyInteger('sbmn_deleted')->default(0);

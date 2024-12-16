@@ -16,14 +16,26 @@ class RoleSubMenuSeeder extends Seeder
             [
                 'rlmn_id' => '2',
                 'sbmn_id' => 'SBMN00001',
+                'rsm_create' => 1,
+                'rsm_update' => 1,
+                'rsm_destroy' => 1,
+                'rsm_view' => 1,
             ],
             [
                 'rlmn_id' => '2',
                 'sbmn_id' => 'SBMN00002',
+                'rsm_create' => 1,
+                'rsm_update' => 1,
+                'rsm_destroy' => 1,
+                'rsm_view' => 1,
             ],
             [
                 'rlmn_id' => '2',
                 'sbmn_id' => 'SBMN00003',
+                'rsm_create' => 1,
+                'rsm_update' => 1,
+                'rsm_destroy' => 1,
+                'rsm_view' => 1,
             ],
         ]);
     }
