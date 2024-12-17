@@ -127,6 +127,7 @@ if(selectedUpdateBtns.length > 0) {
             document.getElementById('e-branched').value = data['branched'];
             document.getElementById('update').value = data['id'];
             document.getElementById('e-delete').value = data['id'];
+            document.getElementById('e-action').value = data['has_action'];
         });
     }
 }

@@ -22,6 +22,7 @@ class DashboardController extends Controller
             'records' => $records,
             'search' => $search,
         ];
+
         return view('pages.'.$page, $data);
     }
 }

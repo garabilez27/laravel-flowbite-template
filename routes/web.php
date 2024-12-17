@@ -17,7 +17,7 @@ Route::middleware(Authorized::class)->group(function() {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::prefix('settings')->group(function() {
-        Route::get('settings', [SettingController::class, 'index'])->name('settings');
+        Route::get('/', [SettingController::class, 'index'])->name('settings');
 
         // Menus
         Route::prefix('menus')->group(function() {
@@ -40,10 +40,12 @@ Route::middleware(Authorized::class)->group(function() {
         // Roles
         Route::prefix('roles')->group(function() {
             Route::get('/', [RoleController::class, 'index'])->name('rl.index');
+            Route::get('/{id}/menus', [RoleController::class, 'view'])->name('rl.view');
 
             Route::post('/create', [RoleController::class, 'create'])->name('rl.create');
             Route::post('/delete', [RoleController::class, 'destroy'])->name('rl.delete');
             Route::post('/update', [RoleController::class, 'update'])->name('rl.update');
+            Route::post('/menus/create', [RoleController::class, 'createMenus'])->name('rl.menus.create');
         });
     });
 });

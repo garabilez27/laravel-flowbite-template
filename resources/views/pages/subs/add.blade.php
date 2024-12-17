@@ -1,3 +1,4 @@
+@if ($user->menus[$s_menu]['subs'][$s_submenu]['can']['create'])
 <!-- Add Drawer -->
 <div id="drawer-create-default" class="fixed top-0 right-0 z-40 w-full h-screen max-w-xs p-4 overflow-y-auto transition-transform translate-x-full bg-white dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-label" aria-hidden="true">
     <h5 id="drawer-label" class="inline-flex items-center mb-6 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">New Sub Menu</h5>
@@ -58,16 +59,6 @@
                     <span class="text-red-600 text-xs">{{ $message }}</span>
                 @enderror
             </div>
-            <div>
-                <label for="menu" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"><span class="text-red-600">*</span> Menu</label>
-                <select name="menu" id="menu" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                </select>
-                @error('menu')
-                    <span class="text-red-600 text-xs">{{ $message }}</span>
-                @enderror
-            </div>
             <div class="bottom-0 left-0 flex justify-center w-full pb-4 space-x-4 md:px-4 md:absolute">
                 <button type="submit" class="text-white w-full justify-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                     Add product
@@ -80,3 +71,4 @@
         </div>
     </form>
 </div>
+@endif

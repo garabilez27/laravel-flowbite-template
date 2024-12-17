@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('mn_icon');
             $table->unsignedInteger('mn_sequence')->nullable();
             $table->unsignedTinyInteger('mn_branched')->default(0);
+            $table->unsignedTinyInteger('mn_has_actions')->default(0);
             $table->unsignedTinyInteger('mn_active')->default(1);
             $table->unsignedTinyInteger('mn_deleted')->default(0);
             $table->timestamp('mn_created_at')->useCurrent();

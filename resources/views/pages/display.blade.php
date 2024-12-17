@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="p-4 pb-0 bg-white block sm:flex items-center justify-between border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+<div class="p-4 pb-0 bg-white block sm:flex items-center justify-between border-gray-200 dark:bg-gray-900 dark:border-gray-700">
     <div class="w-full">
         <div class="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-6 gap-4">
             @foreach ($user->menus[$s_menu]['subs'] as $sub)

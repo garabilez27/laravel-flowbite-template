@@ -23,6 +23,7 @@ class MenuResource extends JsonResource
             'active' => $this->mn_active,
             'sequence' => $this->mn_sequence,
             'prefix' => $this->mn_prefix,
+            'has_action' => $this->mn_has_actions,
         ];
     }
 }
