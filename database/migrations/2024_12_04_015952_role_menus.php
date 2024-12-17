@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('tbl_role_menus', function (Blueprint $table) {
             $table->id('rlmn_id');
             $table->unsignedTinyInteger('rlmn_active')->default(1);
+            $table->unsignedTinyInteger('rlmn_create')->default(0);
+            $table->unsignedTinyInteger('rlmn_update')->default(0);
+            $table->unsignedTinyInteger('rlmn_destroy')->default(0);
+            $table->unsignedTinyInteger('rlmn_view')->default(0);
             $table->timestamp('rlmn_created_at')->useCurrent();
             $table->timestamp('rlmn_updated_at')->useCurrent()->useCurrentOnUpdate();
 

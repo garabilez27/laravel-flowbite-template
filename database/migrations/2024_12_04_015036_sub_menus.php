@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('sbmn_icon')->default('fa-circle')->nullable();
             $table->string('sbmn_class')->nullable();
             $table->unsignedInteger('sbmn_sequence')->nullable();
-            $table->unsignedTinyInteger('sbmn_menu')->default(1);
             $table->unsignedTinyInteger('sbmn_active')->default(1);
             $table->unsignedTinyInteger('sbmn_deleted')->default(0);
             $table->timestamp('sbmn_created_at')->useCurrent();

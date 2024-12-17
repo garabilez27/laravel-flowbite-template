@@ -20,9 +20,11 @@
                         </button>
                     </form>
                 </div>
+                @if ($user->menus[$s_menu]['subs'][$s_submenu]['can']['create'])
                 <button class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800" type="button" data-drawer-target="drawer-create-default" data-drawer-show="drawer-create-default" aria-controls="drawer-create-default" data-drawer-placement="right">
                     Add New
                 </button>
+                @endif
             </div>
         </div>
     </div>
@@ -51,9 +53,6 @@
                                 Class
                             </th>
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                Menu
-                            </th>
-                            <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
                                 For
                             </th>
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
@@ -69,21 +68,18 @@
                                 <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">{{ $menu->sbmn_icon }}</td>
                                 <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">{{ $menu->sbmn_reference }}</td>
                                 <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">{{ $menu->sbmn_class }}</td>
-                                <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                    @if ($menu->sbmn_menu)
-                                        Yes
-                                    @else
-                                        No
-                                    @endif
-                                </td>
                                 <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">{{ $menu->menu->mn_detail }}</td>
                                 <td class="p-4 space-x-2 whitespace-nowrap">
+                                    @if ($user->menus[$s_menu]['subs'][$s_submenu]['can']['update'])
                                     <button type="button" data-drawer-target="drawer-update-default" data-drawer-show="drawer-update-default" aria-controls="drawer-update-default" data-drawer-placement="right" class="sub-menu-form inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" value="{{ md5($menu->sbmn_id) }}">
                                         <i class="fa fa-edit"></i>
                                     </button>
+                                    @endif
+                                    @if ($user->menus[$s_menu]['subs'][$s_submenu]['can']['delete'])
                                     <button type="button" data-drawer-target="drawer-delete-default" data-drawer-show="drawer-delete-default" aria-controls="drawer-delete-default" data-drawer-placement="right" class="delete inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900"  value="{{ md5($menu->sbmn_id) }}">
                                         <i class="fa fa-trash-can"></i>
                                     </button>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -150,6 +146,7 @@
     </div>
 </div>
 
+@if ($user->menus[$s_menu]['subs'][$s_submenu]['can']['delete'])
 <!-- Delete Drawer -->
 <div id="drawer-delete-default" class="fixed top-0 right-0 z-[45] w-full h-screen max-w-xs p-4 overflow-y-auto transition-transform translate-x-full bg-white dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-label" aria-hidden="true">
     <h5 id="drawer-label" class="inline-flex items-center text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">Delete item</h5>
@@ -169,6 +166,7 @@
         </a>
     </form>
 </div>
+@endif
 
 @include('pages.subs.add')
 @include('pages.subs.edit')

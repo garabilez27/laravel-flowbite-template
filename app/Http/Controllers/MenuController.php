@@ -52,6 +52,7 @@ class MenuController extends Controller
             'reference' => 'required|unique:tbl_menus,mn_reference',
             'branched' => 'required|numeric',
             'sequence' => 'numeric|nullable',
+            'action' => 'numeric|required',
         ]);
 
         try
@@ -67,6 +68,7 @@ class MenuController extends Controller
             $menu->mn_reference = $inputs['reference'];
             $menu->mn_branched = $inputs['branched'];
             $menu->mn_sequence = $inputs['sequence'];
+            $menu->mn_has_actions = $inputs['action'];
             $menu->save();
 
             return redirect()->route($this->default_route)->with('message', $this->successMessage());
@@ -87,6 +89,7 @@ class MenuController extends Controller
             'branched' => 'required|numeric',
             'sequence' => 'numeric|nullable',
             'id' =>'string|required',
+            'action' => 'numeric|required'
         ]);
 
         try
@@ -112,6 +115,7 @@ class MenuController extends Controller
             $menu->mn_reference = $inputs['reference'];
             $menu->mn_branched = $inputs['branched'];
             $menu->mn_sequence = $inputs['sequence'];
+            $menu->mn_has_actions = $inputs['action'];
             $menu->save();
 
             return redirect()->route($this->default_route)->with('message', $this->successMessage('Record has been updated.'));
@@ -149,12 +153,20 @@ class MenuController extends Controller
 
     public function render(string $page, mixed $records = [], string $search = '')
     {
-        $data = [
-            's_menu' => $this->root,
-            's_submenu' => $this->getSubMenu($this->root, $page, 'mn'),
-            'records' => $records,
-            'search' => $search,
-        ];
-        return view('pages.menus.'.$page, $data);
+        try
+        {
+            $data = [
+                's_menu' => $this->root,
+                's_submenu' => $this->getSubMenu($this->root, $page, 'mn'),
+                'records' => $records,
+                'search' => $search,
+            ];
+
+            return view('pages.menus.'.$page, $data);
+        }
+        catch(Exception $e)
+        {
+            return redirect()->route('dashboard')->with('message', $this->dangerMessage());
+        }
     }
 }

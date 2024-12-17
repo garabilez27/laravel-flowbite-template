@@ -56,7 +56,6 @@ class SubMenuController extends Controller
             'detail' => 'required|string',
             'icon' => 'string|nullable',
             'reference' => 'required|unique:tbl_sub_menus,sbmn_reference',
-            'menu' => 'required|numeric',
             'sequence' => 'numeric|nullable',
         ]);
 
@@ -78,7 +77,6 @@ class SubMenuController extends Controller
             $sub->sbmn_detail = $inputs['detail'];
             $sub->sbmn_icon = $inputs['icon'];
             $sub->sbmn_reference = $inputs['reference'];
-            $sub->sbmn_menu = $inputs['menu'];
             $sub->sbmn_sequence = $inputs['sequence'];
             $sub->mn_id = $menu->mn_id;
             $sub->save();
@@ -99,7 +97,6 @@ class SubMenuController extends Controller
             'detail' => 'required|string',
             'icon' => 'string|nullable',
             'reference' => 'required',
-            'menu' => 'required|numeric',
             'sequence' => 'numeric|nullable',
             'id' => 'required|string',
         ]);
@@ -132,7 +129,6 @@ class SubMenuController extends Controller
             $sub->sbmn_detail = $inputs['detail'];
             $sub->sbmn_icon = $inputs['icon'];
             $sub->sbmn_reference = $inputs['reference'];
-            $sub->sbmn_menu = $inputs['menu'];
             $sub->sbmn_sequence = $inputs['sequence'];
             $sub->mn_id = $menu->mn_id;
             $sub->save();
@@ -172,12 +168,20 @@ class SubMenuController extends Controller
 
     public function render(string $page, array $records = [], string $search = '')
     {
-        $data = [
-            's_menu' => $this->root,
-            's_submenu' => $this->getSubMenu($this->root, $page, 'sbmn'),
-            'records' => $records,
-            'search' => $search,
-        ];
-        return view('pages.subs.'.$page, $data);
+        try
+        {
+            $data = [
+                's_menu' => $this->root,
+                's_submenu' => $this->getSubMenu($this->root, $page, 'sbmn'),
+                'records' => $records,
+                'search' => $search,
+            ];
+
+            return view('pages.subs.'.$page, $data);
+        }
+        catch(Exception $e)
+        {
+            return redirect()->route('dashboard')->with('message', $this->dangerMessage());
+        }
     }
 }

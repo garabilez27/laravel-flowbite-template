@@ -63,14 +63,8 @@ abstract class Controller
             return $prefix.'.'.$page;
         }
 
-        //
-        if($this->inPageAction($page))
-        {
-            return $prefix.'.index';
-        }
-
         // Menu have no branch
-        if(!$user->menus[$root]['branched'])
+        if(!$user->menus[$root]['branched'] || empty($prefix))
         {
             return '';
         }

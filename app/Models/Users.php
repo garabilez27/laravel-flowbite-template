@@ -35,6 +35,7 @@ class Users extends Model
         $role_menus = RoleMenus::where('rl_id', $rlid)->get();
         foreach($role_menus as $role_menu)
         {
+            // Sub Menus
             $role_sub_menus = RoleSubMenus::where('rlmn_id', $role_menu->rlmn_id)->get();
             foreach($role_sub_menus as $role_sub_menu)
             {
@@ -48,12 +49,13 @@ class Users extends Model
                     'can' => [
                         'create' => $role_sub_menu->rsm_create,
                         'update' => $role_sub_menu->rsm_update,
-                        'destroy' => $role_sub_menu->rsm_destroy,
+                        'delete' => $role_sub_menu->rsm_destroy,
                         'view' => $role_sub_menu->rsm_view,
                     ],
                 ];
             }
 
+            // Menus
             $menu = Menus::find($role_menu->mn_id);
             $menus[$menu->mn_prefix] = [
                 'detail' => $menu->mn_detail,
@@ -61,6 +63,12 @@ class Users extends Model
                 'branched' => $menu->mn_branched,
                 'reference' => $menu->mn_reference,
                 'subs' => $sub_menus,
+                'can' => [
+                    'create' => $role_menu->rlmn_create,
+                    'update' => $role_menu->rlmn_update,
+                    'delete' => $role_menu->rlmn_destroy,
+                    'view' => $role_menu->rlmn_view,
+                ],
             ];
         }
 
