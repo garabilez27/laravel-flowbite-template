@@ -11,6 +11,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubMenuController;
+use App\Http\Controllers\ValueController;
 
 Route::middleware(Authorized::class)->group(function() {
     Route::get('/terminate', [LoginController::class, 'logout'])->name('signout');
@@ -46,6 +47,15 @@ Route::middleware(Authorized::class)->group(function() {
             Route::post('/delete', [RoleController::class, 'destroy'])->name('rl.delete');
             Route::post('/update', [RoleController::class, 'update'])->name('rl.update');
             Route::post('/menus/create', [RoleController::class, 'createMenus'])->name('rl.menus.create');
+        });
+
+        // Values
+        Route::prefix('values')->group(function() {
+            Route::get('/', [ValueController::class, 'index'])->name('val.index');
+
+            Route::post('/create', [ValueController::class, 'create'])->name('val.create');
+            Route::post('/delete', [ValueController::class, 'destroy'])->name('val.delete');
+            Route::post('/update', [ValueController::class, 'update'])->name('val.update');
         });
     });
 });
