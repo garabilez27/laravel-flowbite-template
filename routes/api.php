@@ -45,13 +45,13 @@ Route::middleware(Authorized::class)->group(function() {
                 });
             });
 
-            // Role API
+            // Value API
             Route::prefix('values')->group(function() {
                 Route::get('/', function() {
                     return ValueResource::collection(Values::paginate());
                 });
                 Route::get('/{id}', function(string $id) {
-                    return new ValueResource(Values::whereRaw('md5(rl_id) = ?', $id)->first());
+                    return new ValueResource(Values::whereRaw('md5(val_id) = ?', $id)->first());
                 });
             });
         });
