@@ -115,7 +115,7 @@ const selectedUpdateBtns = document.getElementsByClassName('menu-form');
 if(selectedUpdateBtns.length > 0) {
     for (let i = 0; i < selectedUpdateBtns.length; i++) {
         selectedUpdateBtns[i].addEventListener('click', async function() {
-            const url = 'http://127.0.0.1:8000/api/v1/menus/' + this.value;
+            const url = '/api/v1/menus/' + this.value;
             const data = await fetchData(url);
 
             // Fill the menu update form
@@ -137,7 +137,7 @@ const subMenuUpdateBtns = document.getElementsByClassName('sub-menu-form');
 if(subMenuUpdateBtns.length > 0) {
     for (let i = 0; i < subMenuUpdateBtns.length; i++) {
         subMenuUpdateBtns[i].addEventListener('click', async function() {
-            const url = 'http://127.0.0.1:8000/api/v1/subs/' + this.value;
+            const url = '/api/v1/subs/' + this.value;
             const data = await fetchData(url);
 
             // Fill the sub menu update form
@@ -159,7 +159,7 @@ const roleUpdateBtns = document.getElementsByClassName('role-form');
 if(roleUpdateBtns.length > 0) {
     for (let i = 0; i < roleUpdateBtns.length; i++) {
         roleUpdateBtns[i].addEventListener('click', async function() {
-            const url = 'http://127.0.0.1:8000/api/v1/roles/' + this.value;
+            const url = '/api/v1/roles/' + this.value;
             const data = await fetchData(url);
 
             // Fill the role update form
@@ -176,7 +176,7 @@ const valueUpdateBtns = document.getElementsByClassName('value-form');
 if(valueUpdateBtns.length > 0) {
     for (let i = 0; i < valueUpdateBtns.length; i++) {
         valueUpdateBtns[i].addEventListener('click', async function() {
-            const url = 'http://127.0.0.1:8000/api/v1/values/' + this.value;
+            const url = '/api/v1/values/' + this.value;
             const data = await fetchData(url);
 
             // Fill the value update form
